@@ -1,12 +1,19 @@
 import { useState } from 'react';
 import type { FormEvent } from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
-import { FlaskConicalIcon, LockIcon, TriangleAlertIcon } from 'lucide-react';
+import { CalendarCheckIcon, FlaskConicalIcon, HeartHandshakeIcon, LockIcon, ShieldCheckIcon, TriangleAlertIcon } from 'lucide-react';
 import { Logo } from '../components/layout/Logo';
 import { Button } from '../components/ui/Button';
 import { TextField } from '../components/ui/TextField';
 import { normalizeError } from '../api/errors';
 import { useSessionState } from '../contexts/SessionContext';
+import loginImage from '../assets/login-care.jpg';
+
+const HIGHLIGHTS = [
+  { icon: HeartHandshakeIcon, text: 'Vetted caregivers matched to every family' },
+  { icon: CalendarCheckIcon, text: 'Visits, schedules and payouts in one place' },
+  { icon: ShieldCheckIcon, text: 'Every action verified and audit-logged' },
+] as const;
 
 /** Portfolio deployment backed by a DEMO_MODE API: list the public demo accounts (their password is public too). */
 const PORTFOLIO_DEMO = import.meta.env.VITE_PORTFOLIO_DEMO === 'true';
@@ -50,15 +57,52 @@ export function Login() {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-canvas px-4 py-10">
-      <div className="w-full max-w-[400px]">
-        <div className="mb-6 flex justify-center">
-          <Logo />
+    <div className="flex min-h-screen flex-col bg-canvas lg:flex-row">
+      {/* Brand panel: photo with a teal wash. A short banner on mobile, the left half on large screens. */}
+      <aside className="relative isolate flex h-56 shrink-0 flex-col justify-between overflow-hidden p-6 pb-16 text-white sm:h-72 sm:pb-20 lg:h-auto lg:w-[52%] lg:p-12 xl:w-[56%]">
+        <img
+          src={loginImage}
+          alt=""
+          className="absolute inset-0 -z-20 h-full w-full object-cover"
+          decoding="async" />
+        <div className="absolute inset-0 -z-10 bg-gradient-to-br from-[#0B3F3B]/90 via-[#0F5F58]/75 to-[#14857B]/45" aria-hidden />
+        <div className="absolute inset-x-0 bottom-0 -z-10 h-2/3 bg-gradient-to-t from-[#06201E]/85 to-transparent" aria-hidden />
+
+        <Logo tone="light" />
+
+        <div className="max-w-lg">
+          <p lang="ar" dir="rtl" className="hidden text-[15px] font-medium text-white/80 lg:block" style={{ fontFamily: "'IBM Plex Sans Arabic', 'Segoe UI', Tahoma, sans-serif" }}>
+            رعاية تصل إلى باب البيت
+          </p>
+          <h2 className="mt-2 text-[22px] font-semibold leading-tight tracking-[-0.02em] sm:text-[26px] lg:text-[36px]">
+            Care that comes home.
+          </h2>
+          <p className="mt-3 hidden max-w-md text-[14px] leading-relaxed text-white/75 lg:block">
+            Manage caregivers, visits and payouts for every family you serve — in one secure workspace.
+          </p>
+          <ul className="mt-8 hidden gap-3 lg:grid">
+            {HIGHLIGHTS.map(({ icon: Icon, text }) =>
+            <li key={text} className="flex items-center gap-3 text-[13.5px] text-white/90">
+                <span className="grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-white/10 ring-1 ring-white/20 backdrop-blur">
+                  <Icon className="h-4 w-4" aria-hidden />
+                </span>
+                {text}
+              </li>
+            )}
+          </ul>
         </div>
-        <form onSubmit={onSubmit} noValidate className="space-y-4 rounded-xl border border-line bg-surface p-6 shadow-card">
+      </aside>
+
+      {/* Form panel */}
+      <main className="relative flex flex-1 items-start justify-center px-4 pb-10 sm:px-8 lg:items-center lg:py-10">
+        <div
+          className="pointer-events-none absolute inset-0 opacity-60 [background-image:radial-gradient(rgb(var(--line-strong))_1px,transparent_1px)] [background-size:22px_22px] [mask-image:radial-gradient(ellipse_at_center,black_30%,transparent_75%)]"
+          aria-hidden />
+        <div className="relative -mt-10 w-full max-w-[400px] sm:-mt-14 lg:mt-0">
+        <form onSubmit={onSubmit} noValidate className="space-y-4 rounded-2xl border border-line bg-surface p-6 shadow-pop sm:p-8">
           <div>
-            <h1 className="text-[17px] font-semibold tracking-[-0.01em] text-ink">Sign in</h1>
-            <p className="mt-0.5 text-[13px] text-ink-3">Administrator and finance approver accounts only.</p>
+            <h1 className="text-[22px] font-semibold tracking-[-0.02em] text-ink">Welcome back</h1>
+            <p className="mt-1 text-[13px] text-ink-3">Sign in with your administrator or finance approver account.</p>
           </div>
 
           {error &&
@@ -88,7 +132,7 @@ export function Login() {
             onChange={(e) => setPassword(e.target.value)} />
 
 
-          <Button type="submit" variant="primary" className="w-full" loading={submitting} disabled={!email.trim() || !password}>
+          <Button type="submit" variant="primary" className="h-10 w-full" loading={submitting} disabled={!email.trim() || !password}>
             Sign in
           </Button>
 
@@ -121,7 +165,9 @@ export function Login() {
             Every action is checked again by the server and recorded in the audit log.
           </p>
         </form>
-      </div>
+        <p className="mt-6 text-center text-[11.5px] text-ink-3">© {new Date().getFullYear()} Salamtak · Home Care Platform</p>
+        </div>
+      </main>
     </div>);
 
 }

@@ -2,6 +2,8 @@ import { cn } from '../../utils/cn';
 
 interface LogoProps {
   compact?: boolean;
+  /** `light` for use on dark or photographic backgrounds. */
+  tone?: 'default' | 'light';
   className?: string;
 }
 
@@ -25,16 +27,16 @@ function LogoMark({ className }: { className?: string }) {
 
 }
 
-export function Logo({ compact = false, className }: LogoProps) {
+export function Logo({ compact = false, tone = 'default', className }: LogoProps) {
   return (
     <div className={cn('flex items-center gap-2.5', className)} aria-label="Salamtak">
       <LogoMark className="h-8 w-8 shrink-0" />
       {!compact &&
       <span className="flex min-w-0 flex-col leading-tight" aria-hidden>
-          <span lang="ar" className="text-[17px] font-bold leading-none text-ink" style={{ fontFamily: "'IBM Plex Sans Arabic', 'Segoe UI', Tahoma, sans-serif" }}>
+          <span lang="ar" className={cn('text-[17px] font-bold leading-none', tone === 'light' ? 'text-white' : 'text-ink')} style={{ fontFamily: "'IBM Plex Sans Arabic', 'Segoe UI', Tahoma, sans-serif" }}>
             سلامتك
           </span>
-          <span className="mt-1 text-[10.5px] text-ink-3">Salamtak · Home Care Platform</span>
+          <span className={cn('mt-1 text-[10.5px]', tone === 'light' ? 'text-white/70' : 'text-ink-3')}>Salamtak · Home Care Platform</span>
         </span>
       }
     </div>);
