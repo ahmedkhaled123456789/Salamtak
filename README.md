@@ -1,4 +1,4 @@
-# CareFlow Admin Dashboard
+# Slamtak Admin Dashboard
 
 React 18 + Vite + TypeScript + Tailwind + TanStack Query. The UI/design system comes from Magic Patterns; the data layer
 talks to `care-backend` (see `../docs/admin-integration-map.md`). There is no demo/mock data in the app.
