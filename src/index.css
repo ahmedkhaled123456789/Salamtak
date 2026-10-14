@@ -1,0 +1,101 @@
+/* @import url() FONT IMPORTS MUST ALWAYS BE AT THE VERY TOP OF THIS FILE, ABOVE THE TAILWIND IMPORTS — DO NOT DELETE THIS COMMENT */
+@import url('https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap');
+
+/* CRITICAL: THE FOLLOWING TAILWIND IMPORTS MUST NEVER BE DELETED OR REORDERED — DO NOT DELETE THIS COMMENT */
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+/* END TAILWIND IMPORTS — ALL OTHER CSS MUST GO BELOW THIS LINE */
+
+:root {
+  --canvas: 246 247 249;
+  --surface: 255 255 255;
+  --elevated: 255 255 255;
+  --subtle: 242 244 247;
+  --line: 229 232 237;
+  --line-strong: 211 216 224;
+  --ink: 11 19 34;
+  --ink-2: 71 82 102;
+  --ink-3: 125 135 153;
+  --brand: 16 42 82;
+  --brand-ink: 255 255 255;
+  --brand-soft: 232 238 248;
+  --success: 22 125 72;
+  --success-soft: 232 246 238;
+  --warning: 176 94 12;
+  --warning-soft: 253 244 228;
+  --danger: 192 38 51;
+  --danger-soft: 253 237 238;
+  --info: 37 99 205;
+  --info-soft: 234 241 253;
+  --chart-1: 16 42 82;
+  --chart-2: 13 148 136;
+  --chart-3: 214 116 82;
+  --chart-4: 99 115 140;
+  --chart-5: 203 212 224;
+  --shadow: 15 23 42;
+  color-scheme: light;
+}
+.dark {
+  --canvas: 8 11 17;
+  --surface: 13 17 25;
+  --elevated: 20 25 35;
+  --subtle: 22 28 39;
+  --line: 32 39 53;
+  --line-strong: 46 55 72;
+  --ink: 230 234 241;
+  --ink-2: 158 168 186;
+  --ink-3: 108 118 137;
+  --brand: 147 180 245;
+  --brand-ink: 8 13 24;
+  --brand-soft: 24 34 55;
+  --success: 86 196 132;
+  --success-soft: 16 38 28;
+  --warning: 232 176 76;
+  --warning-soft: 42 31 13;
+  --danger: 240 112 112;
+  --danger-soft: 48 19 23;
+  --info: 116 162 245;
+  --info-soft: 19 30 52;
+  --chart-1: 147 180 245;
+  --chart-2: 72 200 183;
+  --chart-3: 236 146 112;
+  --chart-4: 120 132 155;
+  --chart-5: 46 56 74;
+  --shadow: 0 0 0;
+  color-scheme: dark;
+}
+html,
+body,
+#root {
+  min-height: 100%;
+}
+body {
+  @apply bg-canvas font-sans text-ink antialiased;
+  font-feature-settings: 'ss01', 'cv11';
+}
+.num {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: 'tnum';
+}
+*:focus-visible {
+  outline: 2px solid rgb(var(--brand) / 0.55);
+  outline-offset: 2px;
+}
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-thumb {
+  background: rgb(var(--line-strong));
+  border-radius: 999px;
+  border: 3px solid rgb(var(--canvas));
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+.recharts-surface:focus,
+.recharts-wrapper:focus {
+  outline: none;
+}
